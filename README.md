@@ -13,7 +13,7 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 <h3> B. Created a Data Factory </h3>
 
--My data factory is called home-rental-df.
+-My data factory is called 'home-rental-df'.
 
 -I used the Data Factory to create the data pipeline. 
 
