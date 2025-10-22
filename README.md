@@ -51,7 +51,7 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 -After some troubleshooting, I am happy to obtain the expected result :)
 
-<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.png?raw=true"></img>
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
 
 
 
