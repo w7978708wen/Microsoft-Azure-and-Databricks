@@ -54,7 +54,4 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 
 
-
--After filling out all 3 sections (General, Source, Sink), validate the data to see if there are any error messages. Then, press debug so the activity status can changed to 'Queued' then to 'Succeeded'
-
   
