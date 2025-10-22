@@ -15,7 +15,7 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 -My data factory is called 'home-rental-df'.
 
--I used the Data Factory to create the data pipeline. 
+-I used the Data Factory to create the data pipeline. It is good practice to rename data pipeline, in case you would have multiple later.
 
 -I extracted the data files from my GitHub repository, and loaded them to my data storage's container's raw-data folder. 
 
@@ -53,9 +53,9 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 -Then, link the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
 Don’t forget to press validate and debug for the arrows to take into effect. 
 
--If you make any updates, like changing the dataset’s name, don’t forget to save changes by pressing validate then debug. 
+-If you make any updates, like changing the dataset’s name, don’t forget to save changes by pressing validate then debug. Lastly, publish the pipeline.
 
--After some troubleshooting, I am happy to obtain the expected result :)
+-After some troubleshooting, I am happy to obtain the expected result. :)
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
 
