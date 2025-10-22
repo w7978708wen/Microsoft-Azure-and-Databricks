@@ -23,6 +23,9 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 -In each data extraction, there are 3 sections to fill out: General, Source, Sink:
 
+<h4>General</h4>
+
+-Enter the dataset name here.
 
 <h4>Source</h4>
 
@@ -48,6 +51,9 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 -After filling out all 3 sections (General, Source, Sink), vaildate the data (to see if there are any error messages), then press 'debug'. This is whe the activity status will go from 'Queued' to 'Succeeded'. The waiting time can take a while depending on your file size.
 
 -Then, link the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
+Don’t forget to press validate and debug for the arrows to take into effect. 
+
+-If you make any updates, like changing the dataset’s name, don’t forget to save changes by pressing validate then debug. 
 
 -After some troubleshooting, I am happy to obtain the expected result :)
 
