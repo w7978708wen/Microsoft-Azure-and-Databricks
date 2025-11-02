@@ -97,9 +97,9 @@ The storage account name and container name can be found in the 'Storage Account
 -An error message I got when trying this out was error 403: "Not authorized from ADLS Gen2..."
 This means that inside my storage account (used in this project), I assigned a new role called 'Storage Blob Data Ditributor' to my app (which I made for this project). 
 
--If the authentication process is successful, the code's output would be 'True'. 
-
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Add%20role%20assignment.png?raw=true"><img>
+
+-If the authentication process is successful, the code's output would be 'True'. 
 
 
 Configuration Template:
