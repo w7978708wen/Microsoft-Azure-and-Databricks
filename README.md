@@ -116,6 +116,8 @@ mount_point = "/mnt/[some name you want to mount it as]",
 extra_configs = configs)
 </code>
 
+Note: In real-world applications, the credentials are stored in the 'Key Vault'. In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
+
 
 
 
