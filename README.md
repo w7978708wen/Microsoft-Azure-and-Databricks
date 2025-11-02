@@ -73,11 +73,52 @@ What I learned:
 -The Australian Central region has Unity Catalog enabled by default. Whereas, the 'Southeast Asia' region does not. 
 
 <h3>Create a cluster</h3>
+In Databricks, click on 'Compute' on the left menu. When you create a new workspace, you would need to create a new cluster. 
+
 The cluster will attach to notebook, and you would need to start the cluster before running the code. 
 
-Since my dataset is not large, I chose the single node type (14GB Memory, 4 Cores). 
+Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Cores) to save resources. Choosing multi-node would enable scaling depending on how much code you write onto the notebook.
 
-From experience, Australia Central 
+<h3>App Registration and Client Secret</h3>
+
+-I created my app called 'app02' (I initially created app01, but long-story short I had a hard time debugging so I switched from my default directory to a newly-made tenant directory. Hence, I had to create another app in this directory)
+
+-After creating the app, the client id and tenant id would be available. Record them as they will later be needed in the authentication-set up that happens inside the Databricks notebook. 
+
+-Then, go to the 'Certificates and Secrets' page to make a new client secret. Also record the generated secret key value, which will be needed in the authentication set-up. 
+
+
+<h3>Establish connection between Data Factory and Azure Data Lake Storage</h3>
+
+-In Azure Databricks, create a Notebook. Start running the Cluster created and use the configuration template below (I used [] to indicate where you would replace with your own credentials). I mentioned how and where to get the client_id, secret_id, and tenant_id. 
+
+The storage account name and container name can be found in the 'Storage Account' page. 
+
+-An error message I got when trying this out was error 403: "Not authorized from ADLS Gen2..."
+This means that inside my storage account (used in this project), I assigned a new role called 'Storage Blob Data Ditributor' to my app (which I made for this project). 
+
+-If the authentication process is successful, the code's output would be 'True'. 
+
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Add%20role%20assignment.png?raw=true"><img>
+
+
+Configuration Template:
+<code> 
+configs = {"fs.azure.account.auth.type": "OAuth",
+"fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
+"fs.azure.account.oauth2.client.id": "[client_id]",
+"fs.azure.account.oauth2.client.secret": "[secret_id]",
+"fs.azure.account.oauth2.client.endpoint": "https://login.microsoftonline.com/[tenant_id]/oauth2/token"}
+
+dbutils.fs.mount(
+source = "abfss://[container-name]@[storage account name].dfs.core.windows.net", 
+mount_point = "/mnt/[some name you want to mount it as]",
+extra_configs = configs)
+</code>
+
+
+
+
 
 
 
