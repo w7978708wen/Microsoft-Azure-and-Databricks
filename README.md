@@ -2,7 +2,7 @@
 
 I am currently learning Microsoft Azure and I would like to document what I learned on a macro-level! 
 
-<h2>Step 1. Extract data from data source to data storage </h2>
+<h2>Section 1. Extract data from data source to data storage </h2>
 
 <h3> A. Created a storage account to store data </h3>
 -Inside Azure's Resource page, I went to the Data Storage section to create a new container inside. 
@@ -58,6 +58,26 @@ Don’t forget to press validate and debug for the arrows to take into effect.
 -After some troubleshooting, I am happy to obtain the expected result. :)
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
+
+<h2>Section 2. Azure Databricks (for data transformation) </h2>
+
+<h3>Create a workspace</h3>
+Create the workspace inside Azure Databricks. I made the mistake of choosing a region which has Unity Catalog enabled by default, such that I could not use the mount method to establish a relationship (with authentication information) from Azure Data Lake Storage to Azure Data Factory. 
+
+What I learned: 
+
+-The region cannot be modified after creating the workspace.
+
+-The region does not tell you whether it enables Unity Catalog by default. After launching Databricks Studio, if the left menu says 'Data', then your workspace is in 'DBFS' mode. Otherwise, if the left menu says 'Catalogs' , then the workspace is in 'Unity Catalog' enabled mode.
+
+-The Australian Central region has Unity Catalog enabled by default. Whereas, the 'Southeast Asia' region does not. 
+
+<h3>Create a cluster</h3>
+The cluster will attach to notebook, and you would need to start the cluster before running the code. 
+
+Since my dataset is not large, I chose the single node type (14GB Memory, 4 Cores). 
+
+From experience, Australia Central 
 
 
 
