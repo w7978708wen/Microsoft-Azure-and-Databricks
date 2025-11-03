@@ -118,6 +118,31 @@ extra_configs = configs)
 
 Note: In real-world applications, the credentials are stored in the 'Key Vault'. In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
 
+<h3>Data transformation and data analysis using Apache Spark</h3>
+
+Follow along by clicking on my Juypter notebook <a href="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Databricks%20Spark%20Data%20Transformation.ipynb"> here </a> .
+
+<h4>Data transformation </h4>
+
+The data transformation is done, so that good data could be passed forward onto the data analysis step. 
+
+I used 2 methods: 
+
+Firstly, I maually assessed each column's data type after the .csv file was read, and used the Cast method to change each wrong data type. 
+
+Secondly, I let Spark infer what the data type should be, which correctly identified most date and boolean column types. There was 1 undetected data type, which I manually switched data type. 
+
+One of the key things I learned is to use (\) to convert 2+ columns, given that they belong to the same data frame and are converted to the same data type.
+
+<h4>Data analysis</h4>
+I used the clean data to find out about some questions:
+
+
+1. Find the housing option with the highest monthly utilities
+
+
+
+
 
 
 
