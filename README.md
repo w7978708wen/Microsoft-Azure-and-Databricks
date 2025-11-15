@@ -13,7 +13,7 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 <h3> B. Created a Data Factory </h3>
 
--My data factory is called 'home-rental-df'.
+-My data factory is called "home-rental-df".
 
 -I used the Data Factory to create the data pipeline. It is good practice to rename data pipeline, in case you would have multiple later.
 
@@ -48,7 +48,7 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 
 
--After filling out all 3 sections (General, Source, Sink), vaildate the data (to see if there are any error messages), then press 'debug'. This is whe the activity status will go from 'Queued' to 'Succeeded'. The waiting time can take a while depending on your file size.
+-After filling out all 3 sections (General, Source, Sink), vaildate the data (to see if there are any error messages), then press "debug". This is whe the activity status will go from "Queued" to "Succeeded". The waiting time can take a while depending on your file size.
 
 -Then, link the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
 Don’t forget to press validate and debug for the arrows to take into effect. 
@@ -68,12 +68,12 @@ What I learned:
 
 -The region cannot be modified after creating the workspace.
 
--The region does not tell you whether it enables Unity Catalog by default. After launching Databricks Studio, if the left menu says 'Data', then your workspace is in 'DBFS' mode. Otherwise, if the left menu says 'Catalogs' , then the workspace is in 'Unity Catalog' enabled mode.
+-The region does not tell you whether it enables Unity Catalog by default. After launching Databricks Studio, if the left menu says "Data", then your workspace is in "DBFS" mode. Otherwise, if the left menu says "Catalogs" , then the workspace is in "Unity Catalog" enabled mode.
 
--The Australian Central region has Unity Catalog enabled by default. Whereas, the 'Southeast Asia' region does not. 
+-The Australian Central region has Unity Catalog enabled by default. Whereas, the "Southeast Asia" region does not. 
 
 <h3>Create a cluster</h3>
-In Databricks, click on 'Compute' on the left menu. When you create a new workspace, you would need to create a new cluster. 
+In Databricks, click on "Compute" on the left menu. When you create a new workspace, you would need to create a new cluster. 
 
 The cluster will attach to notebook, and you would need to start the cluster before running the code. 
 
@@ -81,25 +81,25 @@ Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Core
 
 <h3>App Registration and Client Secret</h3>
 
--I created my app called 'app02' (I initially created app01, but long-story short I had a hard time debugging so I switched from my default directory to a newly-made tenant directory. Hence, I had to create another app in this directory)
+-I created my app called "app02" (I initially created app01, but long-story short I had a hard time debugging so I switched from my default directory to a newly-made tenant directory. Hence, I had to create another app in this directory)
 
 -After creating the app, the client id and tenant id would be available. Record them as they will later be needed in the authentication-set up that happens inside the Databricks notebook. 
 
--Then, go to the 'Certificates and Secrets' page to make a new client secret. Also record the generated secret key value, which will be needed in the authentication set-up. 
+-Then, go to the "Certificates and Secrets" page to make a new client secret. Also record the generated secret key value, which will be needed in the authentication set-up. 
 
 
 <h3>Establish connection between Data Factory and Azure Data Lake Storage</h3>
 
 -In Azure Databricks, create a Notebook. Start running the Cluster created and use the configuration template below (I used [] to indicate where you would replace with your own credentials). I mentioned how and where to get the client_id, secret_id, and tenant_id. 
 
-The storage account name and container name can be found in the 'Storage Account' page. 
+The storage account name and container name can be found in the "Storage Account" page. 
 
 -An error message I got when trying this out was error 403: "Not authorized from ADLS Gen2..."
-This means that inside my storage account (used in this project), I assigned a new role called 'Storage Blob Data Ditributor' to my app (which I made for this project). 
+This means that inside my storage account (used in this project), I assigned a new role called "Storage Blob Data Ditributor" to my app (which I made for this project). 
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Add%20role%20assignment.png?raw=true"><img>
 
--If the authentication process is successful, the code's output would be 'True'. 
+-If the authentication process is successful, the code's output would be "True". 
 
 
 Configuration Template:
@@ -116,7 +116,7 @@ mount_point = "/mnt/[some name you want to mount it as]",
 extra_configs = configs)
 ```
 
-Note: In real-world applications, the credentials are stored in the 'Key Vault'. In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
+Note: In real-world applications, the credentials are stored in the "Key Vault". In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
 
 <h3>Data transformation and data analysis using Apache Spark</h3>
 
@@ -145,6 +145,63 @@ highest_utilities_housing = pricing.orderBy("Monthly Utilities", ascending=False
 
 Here is a snippet of the output (full details available in the Juypter notebook): 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks1.png?raw=true"></img>
+
+<h4>Output transformed dataframes into CSV files</h4>
+
+Next, I output each transformed dataframe into CSV format. I can specify where to store this CSV file, which will be in the transformed-data folder (inside my storage account’s container). During the configuration step, I attached this folder to my mounting point. 
+
+
+I have three coding templates, depending on whether it is the first time writing on the output csv file, and whether you would like to partition the CSV file into multiple files (because CSV file is too large to be in one file).
+
+
+Template 1: Output the transformed dataframe to CSV (first-time write)
+
+-When you write the code using Apache Spark, it will create the folder and then write the files with the metadata
+
+```python
+[dataframe_name].write.option("header","true").csv("/mnt/homerental/transformed-data/dataframe_name")
+```
+
+
+Template 2: Overwrite an existing file
+If you run the code again after the folder has already been created, you’ll get an error. To avoid this, add <code>.mode("overwrite")</code>, which replaces the existing file.
+
+```python
+[dataframe_name].write.mode(“overwrite”).option("header","true").csv("/mnt/[mounting_point_name]/[folder_name]/[dataframe_name]")
+```
+
+Template 3: Split the output into multiple files (partitioning)
+If your file is large, you can instruct Apache Spark to write the output into n partitions, resulting in multiple CSV files.
+
+```python
+[dataframe_name].repartition([n])write.mode(“overwrite”).option("header","true").csv("/mnt/[mounting_point_name]/[folder_name]/[dataframe_name]")
+```
+
+For this use case, I am going to export all of my csv files using only template 1 (no partitioning nor overwriting).
+
+```python
+applicant.write.option("header","true").csv("/mnt/homerental/transformed-data/applicant")
+```
+
+```python
+capacity.write.option("header","true").csv("/mnt/homerental/transformed-data/capacity")
+```
+
+```python
+pricing.write.option("header","true").csv("/mnt/homerental/transformed-data/pricing")
+```
+
+
+Each .csv file has its own folder under my transformed-data folder.
+
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks2.png?raw=true"></img>
+
+
+The actual CSV file is stored in the file that says “part-0000-tid…” , and it can be downloaded. If you choose to output the CSV file into multiple partitions, there will be several files that look similar, such as "part-0000-tid.." and "part-0001-tid...".
+
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks3.png?raw=true"></img>
+
+
 
 
 
