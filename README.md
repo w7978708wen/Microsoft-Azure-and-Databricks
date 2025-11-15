@@ -135,14 +135,19 @@ Secondly, I let Spark infer what the data type should be, which correctly identi
 One of the key things I learned is to use (\) to convert 2+ columns, given that they belong to the same data frame and are converted to the same data type.
 
 <h4>Data analysis</h4>
-I used the clean data to find out about some questions:
+I used the clean data to do data analysis.
 
-
-1. Find the housing option with the highest monthly utilities
+Sample question: Find the housing option with the highest monthly utilities
   
 ```python
 highest_utilities_housing = pricing.orderBy("Monthly Utilities", ascending=False).show()
 ```
+
+Here is a snippet of the output (full details available in the Juypter notebook): 
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks1.png?raw=true"></img>
+
+
+
 
 
 
