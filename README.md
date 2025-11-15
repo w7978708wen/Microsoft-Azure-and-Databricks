@@ -103,7 +103,7 @@ This means that inside my storage account (used in this project), I assigned a n
 
 
 Configuration Template:
-<code> 
+```python
 configs = {"fs.azure.account.auth.type": "OAuth",
 "fs.azure.account.oauth.provider.type": "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider",
 "fs.azure.account.oauth2.client.id": "[client_id]",
@@ -114,7 +114,7 @@ dbutils.fs.mount(
 source = "abfss://[container-name]@[storage account name].dfs.core.windows.net", 
 mount_point = "/mnt/[some name you want to mount it as]",
 extra_configs = configs)
-</code>
+```
 
 Note: In real-world applications, the credentials are stored in the 'Key Vault'. In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
 
@@ -139,6 +139,12 @@ I used the clean data to find out about some questions:
 
 
 1. Find the housing option with the highest monthly utilities
+  
+```python
+highest_utilities_housing = pricing.orderBy("Monthly Utilities", ascending=False).show()
+```
+
+
 
 
 
