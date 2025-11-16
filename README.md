@@ -2,21 +2,11 @@
 
 I am currently learning Microsoft Azure and I would like to document what I learned on a macro-level! 
 
-To simulate the analysis that I created for my university's student home rental business (which is an academic project), I manually created two small datasets to capture the general trends observed. I am also interested in constructing the ETL pipeline, so I designed two versions. 
+To simulate the analysis that I created for my university's student home rental business (which is an academic project), I manually created two small datasets to capture the general trends observed. 
 
-<h4>Version 1. Using Excel + Python + Power BI:</h4>
+I aim to use my datasets to demonstrate my interest and experience in managing a complete ETL pipeline. Other key objectives include applying design principles to guide the audience’s focus and using data storytelling techniques to communicate insights clearly. This led me to design two versions of the project using different tools — the Power BI version is more visually oriented, while this version serves as practice working with a cloud platform.
 
-Excel for dataset creation.
-
-Python for data transformation (and some data analysis).
-
-Power BI for loading, modelling, and visualizing the data.
-
-Bonus: Microsoft SQL Server can be used as an alternative environment for data analysis.
-
-See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analysis">here</a>.
-
-<h4> Version 2. Using Microsoft Azure:</h4>
+<h4> Version 1. Using Microsoft Azure:</h4>
 
 Azure Data Lake Storage (ADLS) for data ingestion and storage.
 
@@ -25,6 +15,22 @@ Data Factory for data pipeline management.
 Databricks/PySpark for data transformation and loading into folder for transformed data.
 
 This version is covered in this repository.
+<br><br>
+
+<h4>Version 2. Using Excel + Python + Power BI:</h4>
+
+Excel for dataset creation.
+
+Python for data transformation (and some data analysis).
+
+Power BI for loading, modelling, and visualizing the data.
+
+Bonus: Microsoft SQL Server can be used as an alternative environment for data analysis / ad-hoc analysis.
+
+•Immediate operational insights include a capacity tracker, identified the top 10 most expensive room options that costs $1xxx , and a summary of return applicants’ first preferences. Please scroll down to near the end of this README.md for details. Here is the link to the SQL file.
+
+See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analysis">here</a>.
+<br><br>
 
 <h2>Section 1. Extract data from data source to data storage </h2>
 
@@ -34,7 +40,7 @@ This version is covered in this repository.
 -Inside the new container, I created 2 data folders: raw-data and transformed-data. I uploaded the datasets that I have already transformed using Python so I can proceed through all the ETL steps in the Microsoft Azure quicker.
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Containers.png?raw=true"></img>
-
+<br><br>
 <h3> B. Created a Data Factory </h3>
 
 -My data factory is called "home-rental-df".
@@ -82,6 +88,7 @@ Don’t forget to press validate and debug for the arrows to take into effect.
 -After some troubleshooting, I am happy to obtain the expected result. :)
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
+<br><br>
 
 <h2>Section 2. Azure Databricks (for data transformation) </h2>
 
@@ -95,6 +102,7 @@ What I learned:
 -The region does not tell you whether it enables Unity Catalog by default. After launching Databricks Studio, if the left menu says "Data", then your workspace is in "DBFS" mode. Otherwise, if the left menu says "Catalogs" , then the workspace is in "Unity Catalog" enabled mode.
 
 -The Australian Central region has Unity Catalog enabled by default. Whereas, the "Southeast Asia" region does not. 
+<br><br>
 
 <h3>Create a cluster</h3>
 In Databricks, click on "Compute" on the left menu. When you create a new workspace, you would need to create a new cluster. 
@@ -102,6 +110,7 @@ In Databricks, click on "Compute" on the left menu. When you create a new worksp
 The cluster will attach to notebook, and you would need to start the cluster before running the code. 
 
 Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Cores) to save resources. Choosing multi-node would enable scaling depending on how much code you write onto the notebook.
+<br><br>
 
 <h3>App Registration and Client Secret</h3>
 
@@ -110,7 +119,7 @@ Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Core
 -After creating the app, the client id and tenant id would be available. Record them as they will later be needed in the authentication-set up that happens inside the Databricks notebook. 
 
 -Then, go to the "Certificates and Secrets" page to make a new client secret. Also record the generated secret key value, which will be needed in the authentication set-up. 
-
+<br><br>
 
 <h3>Establish connection between Data Factory and Azure Data Lake Storage</h3>
 
@@ -142,9 +151,11 @@ extra_configs = configs)
 
 Note: In real-world applications, the credentials are stored in the "Key Vault". In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
 
+<br><br>
 <h3>Data transformation and data analysis using Apache Spark</h3>
 
 Follow along by clicking on my Juypter notebook <a href="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Databricks%20Spark%20Data%20Transformation.ipynb"> here </a> .
+<br><br>
 
 <h4>Data transformation </h4>
 
@@ -157,6 +168,7 @@ Firstly, I maually assessed each column's data type after the .csv file was read
 Secondly, I let Spark infer what the data type should be, which correctly identified most date and boolean column types. There was 1 undetected data type, which I manually switched data type. 
 
 One of the key things I learned is to use (\) to convert 2+ columns, given that they belong to the same data frame and are converted to the same data type.
+<br><br>
 
 <h4>Data analysis</h4>
 I used the clean data to do data analysis.
@@ -169,6 +181,7 @@ highest_utilities_housing = pricing.orderBy("Monthly Utilities", ascending=False
 
 Here is a snippet of the output (full details available in the Juypter notebook): 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks1.png?raw=true"></img>
+<br><br>
 
 <h4>Output transformed dataframes into CSV files</h4>
 
@@ -176,7 +189,7 @@ Next, I output each transformed dataframe into CSV format. I can specify where t
 
 
 I have three coding templates, depending on whether it is the first time writing on the output csv file, and whether you would like to partition the CSV file into multiple files (because CSV file is too large to be in one file).
-
+<br><br>
 
 Template 1: Output the transformed dataframe to CSV (first-time write)
 
@@ -185,7 +198,7 @@ Template 1: Output the transformed dataframe to CSV (first-time write)
 ```python
 [dataframe_name].write.option("header","true").csv("/mnt/homerental/transformed-data/dataframe_name")
 ```
-
+<br><br>
 
 Template 2: Overwrite an existing file
 If you run the code again after the folder has already been created, you’ll get an error. To avoid this, add <code>.mode("overwrite")</code>, which replaces the existing file.
@@ -193,6 +206,7 @@ If you run the code again after the folder has already been created, you’ll ge
 ```python
 [dataframe_name].write.mode(“overwrite”).option("header","true").csv("/mnt/[mounting_point_name]/[folder_name]/[dataframe_name]")
 ```
+<br><br>
 
 Template 3: Split the output into multiple files (partitioning)
 If your file is large, you can instruct Apache Spark to write the output into n partitions, resulting in multiple CSV files.
@@ -200,6 +214,7 @@ If your file is large, you can instruct Apache Spark to write the output into n 
 ```python
 [dataframe_name].repartition([n])write.mode(“overwrite”).option("header","true").csv("/mnt/[mounting_point_name]/[folder_name]/[dataframe_name]")
 ```
+<br><br>
 
 For this use case, I am going to export all of my csv files using only template 1 (no partitioning nor overwriting).
 
@@ -215,13 +230,15 @@ capacity.write.option("header","true").csv("/mnt/homerental/transformed-data/cap
 pricing.write.option("header","true").csv("/mnt/homerental/transformed-data/pricing")
 ```
 
-
+<br><br>
 Each .csv file has its own folder under my transformed-data folder.
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks2.png?raw=true"></img>
 
+<br><br>
 
 The actual CSV file is stored in the file that says “part-0000-tid…” , and it can be downloaded. If you choose to output the CSV file into multiple partitions, there will be several files that look similar, such as "part-0000-tid.." and "part-0001-tid...".
+<br><br>
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks3.png?raw=true"></img>
 
