@@ -2,6 +2,18 @@
 
 I am currently learning Microsoft Azure and I would like to document what I learned on a macro-level! 
 
+To simulate the analysis that I created for my university's student home rental business (which is an academic project), I manually created two small datasets to capture the general trends observed. I am also interested in constructing the ETL pipeline, so I designed two versions. 
+
+<h4>Version 1. Using Excel + Python + Power BI</h4>
+
+Bonus: Microsoft SQL Server 
+
+See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analysis">here</a>.
+
+<h4> Version 2. Using Microsoft Azure (Data Factory + Databricks) </h4>
+
+This version is covered in this repository.
+
 <h2>Section 1. Extract data from data source to data storage </h2>
 
 <h3> A. Created a storage account to store data </h3>
