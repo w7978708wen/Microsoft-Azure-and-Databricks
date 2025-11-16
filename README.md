@@ -4,13 +4,25 @@ I am currently learning Microsoft Azure and I would like to document what I lear
 
 To simulate the analysis that I created for my university's student home rental business (which is an academic project), I manually created two small datasets to capture the general trends observed. I am also interested in constructing the ETL pipeline, so I designed two versions. 
 
-<h4>Version 1. Using Excel + Python + Power BI</h4>
+<h4>Version 1. Using Excel + Python + Power BI:</h4>
 
-Bonus: Microsoft SQL Server 
+Excel for dataset creation.
+
+Python for data transformation (and some data analysis).
+
+Power BI for loading, modelling, and visualizing the data.
+
+Bonus: Microsoft SQL Server can be used as an alternative environment for data analysis.
 
 See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analysis">here</a>.
 
-<h4> Version 2. Using Microsoft Azure (Data Factory + Databricks) </h4>
+<h4> Version 2. Using Microsoft Azure:</h4>
+
+Azure Data Lake Storage (ADLS) for data ingestion and storage.
+
+Data Factory for data pipeline management.
+
+Databricks/PySpark for data transformation and loading into folder for transformed data.
 
 This version is covered in this repository.
 
