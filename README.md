@@ -1,4 +1,4 @@
-# Microsoft-Azure-and-Databricks
+<h2>Introduction</h2>
 
 I am currently learning Microsoft Azure and I would like to document what I learned on a macro-level! 
 
@@ -12,7 +12,9 @@ Azure Data Lake Storage (ADLS) for data ingestion and storage.
 
 Data Factory for data pipeline management.
 
-Databricks/PySpark for data transformation and loading into folder for transformed data.
+Databricks for data transformation and loading into folder for transformed data (using PySpark).
+
+Bonus: Synapse Analytics for data analysis (using SQL)
 
 This version is covered in this repository.
 <br><br>
@@ -242,8 +244,44 @@ The actual CSV file is stored in the file that says “part-0000-tid…” , and
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Databricks3.png?raw=true"></img>
 
+<br><br>
 
+<h2>Bonus section: Synapse Analytics </h2>
 
+<h3>Synapse Studio set-up</h3>
+
+I used the transformed data sets from Databricks. 
+
+To create a Synapse workspace, I used the same resource group as before. However, some other things like the storage account are tied to the Databricks workspace. Therefore, I created new things like a new storage account to dedicate to the Synanse workspace set-up. 
+
+I downloaded the datasets from the transformed-data folder which belongs to Databrick's storage account. Then, I put them in the new storage account's folder, so I can easily access them after opening the Synapse Studio. 
+
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Synapse_data_setup.png?raw=true"></img>
+
+<br></br>
+
+Next, I ran a SQL script on each dataset. 
+
+<h3>Data analysis</h3>
+
+<h4>Query 1. Distribution of Applicants by Classification (New vs Returner) </h4>
+
+```sql
+SELECT [Classification Description], COUNT([Classification Description]) AS "Count"
+FROM
+    OPENROWSET(
+        BULK 'https://homerentalsynapse2.dfs.core.windows.net/homerentalfs/transformed_applicant.csv.csv',
+        FORMAT = 'CSV',
+        PARSER_VERSION = '2.0',
+        HEADER_ROW = TRUE
+    ) AS [result]
+    group by [Classification Description]
+    ;
+  ```
+
+Output:
+
+<img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Synapse_output1.png?raw=true"></img>
 
 
 
