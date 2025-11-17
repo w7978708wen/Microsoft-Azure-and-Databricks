@@ -53,41 +53,10 @@ See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analy
 
 -Each data file needs to be extracted individiually. 
 
--In each data extraction, there are 3 sections to fill out: General, Source, Sink:
+-In each data extraction, there are 3 sections to fill out: General, Source, Sink.
 
-<h4>General</h4>
-
--Enter the dataset name here.
-
-<h4>Source</h4>
-
--In the Source section, I set the data source as HTTP because this data is accessed through our HTTP server. 
-
--I collected the base url for my data file by clicking on my file's raw page. 
-
--Tip: preview the data to see if the data has been imported correctly. 
-
-
-
-<h4>Sink</h4>
--This is the section to convert data format, if you want. I sticked with .csv delimiter text format for simplicity. 
-
--The data is extracted from Data Factory, and loaded to Data Lake Gen 2. 
-
--The linked service section establishes a link between Data Factory and our Data Lake Gen 2 storage account. 
-
--If you are using a free account, you would need to disable the Blob-only features for your storage account, so the file path connection can be established.
-
-
-
--After filling out all 3 sections (General, Source, Sink), vaildate the data (to see if there are any error messages), then press "debug". This is whe the activity status will go from "Queued" to "Succeeded". The waiting time can take a while depending on your file size.
-
--Then, link the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
-Don’t forget to press validate and debug for the arrows to take into effect. 
-
--If you make any updates, like changing the dataset’s name, don’t forget to save changes by pressing validate then debug. Lastly, publish the pipeline.
-
--After some troubleshooting, I am happy to obtain the expected result. :)
+-Then, I linked the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
+I validated, debugged, and published the pipeline. After some troubleshooting, I am happy to obtain the expected result. :)
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
 <br><br>
@@ -95,19 +64,9 @@ Don’t forget to press validate and debug for the arrows to take into effect.
 <h2>Section 2. Azure Databricks for data transformation and data analysis (using PySpark) </h2>
 
 <h3>Create a workspace</h3>
-Create the workspace inside Azure Databricks. I made the mistake of choosing a region which has Unity Catalog enabled by default, such that I could not use the mount method to establish a relationship (with authentication information) from Azure Data Lake Storage to Azure Data Factory. 
-
-What I learned: 
-
--The region cannot be modified after creating the workspace.
-
--The region does not tell you whether it enables Unity Catalog by default. After launching Databricks Studio, if the left menu says "Data", then your workspace is in "DBFS" mode. Otherwise, if the left menu says "Catalogs" , then the workspace is in "Unity Catalog" enabled mode.
-
--The Australian Central region has Unity Catalog enabled by default. Whereas, the "Southeast Asia" region does not. 
-<br><br>
 
 <h3>Create a cluster</h3>
-In Databricks, click on "Compute" on the left menu. When you create a new workspace, you would need to create a new cluster. 
+When you create a new workspace, you would need to create a new cluster. 
 
 The cluster will attach to notebook, and you would need to start the cluster before running the code. 
 
@@ -128,9 +87,6 @@ Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Core
 -In Azure Databricks, create a Notebook. Start running the Cluster created and use the configuration template below (I used [] to indicate where you would replace with your own credentials). I mentioned how and where to get the client_id, secret_id, and tenant_id. 
 
 The storage account name and container name can be found in the "Storage Account" page. 
-
--An error message I got when trying this out was error 403: "Not authorized from ADLS Gen2..."
-This means that inside my storage account (used in this project), I assigned a new role called "Storage Blob Data Ditributor" to my app (which I made for this project). 
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Add%20role%20assignment.png?raw=true"><img>
 
