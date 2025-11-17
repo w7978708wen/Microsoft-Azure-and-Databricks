@@ -252,7 +252,7 @@ The actual CSV file is stored in the file that says “part-0000-tid…” , and
 
 I used the transformed data sets from Databricks. 
 
-To create a Synapse workspace, I used the same resource group as before. However, some other things like the storage account are tied to the Databricks workspace. Therefore, I created new things like a new storage account to dedicate to the Synanse workspace set-up. 
+To create a Synapse workspace, I used the same resource group as before. However, some other things like the storage account are tied to the Databricks workspace, such that they cannot be accessed outside of the Databricks workspace. Therefore, I created new things like a new storage account to dedicate to the Synanse workspace set-up. 
 
 I downloaded the datasets from the transformed-data folder which belongs to Databrick's storage account. Then, I put them in the new storage account's folder, so I can easily access them after opening the Synapse Studio. 
 
