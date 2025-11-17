@@ -283,7 +283,7 @@ Output:
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Synapse_output1.png?raw=true"></img>
 
-
+<br></br>
 Publish the SQL Script to save any code updates.
 
 
