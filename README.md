@@ -37,9 +37,8 @@ See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analy
 <h2>Section 1. Extract data from data source to data storage </h2>
 
 <h3> A. Created a storage account to store data </h3>
--Inside Azure's Resource page, I went to the Data Storage section to create a new container inside. 
 
--Inside the new container, I created 2 data folders: raw-data and transformed-data. I uploaded the datasets that I have already transformed using Python so I can proceed through all the ETL steps in the Microsoft Azure quicker.
+-I created 2 data folders: raw-data and transformed-data. I uploaded the datasets that I have already transformed using Python so I can proceed through all the ETL steps in the Microsoft Azure quicker.
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Containers.png?raw=true"></img>
 <br><br>
@@ -48,12 +47,6 @@ See repository <a href="https://github.com/w7978708wen/Student-Home-Rental-Analy
 -My data factory is called "home-rental-df".
 
 -I used the Data Factory to create the data pipeline. It is good practice to rename data pipeline, in case you would have multiple later.
-
--I extracted the data files from my GitHub repository, and loaded them to my data storage's container's raw-data folder. 
-
--Each data file needs to be extracted individiually. 
-
--In each data extraction, there are 3 sections to fill out: General, Source, Sink.
 
 -Then, I linked the tables. The arrows between them indicate that the tables are executed sequentially — each one runs after the previous one finishes.
 I validated, debugged, and published the pipeline. After some troubleshooting, I am happy to obtain the expected result. :)
@@ -70,23 +63,22 @@ When you create a new workspace, you would need to create a new cluster.
 
 The cluster will attach to notebook, and you would need to start the cluster before running the code. 
 
-Since my dataset is not large, I chose the single-node type (14GB Memory, 4 Cores) to save resources. Choosing multi-node would enable scaling depending on how much code you write onto the notebook.
+Since my dataset is not large, I chose the single-node type.
+
 <br><br>
 
 <h3>App Registration and Client Secret</h3>
 
 -I created my app called "app02" (I initially created app01, but long-story short I had a hard time debugging so I switched from my default directory to a newly-made tenant directory. Hence, I had to create another app in this directory)
 
--After creating the app, the client id and tenant id would be available. Record them as they will later be needed in the authentication-set up that happens inside the Databricks notebook. 
-
--Then, go to the "Certificates and Secrets" page to make a new client secret. Also record the generated secret key value, which will be needed in the authentication set-up. 
+-Also obtained the client id, tenant id, new client secret, the generated secret key value for authentication set-up. 
 <br><br>
 
 <h3>Establish connection between Data Factory and Azure Data Lake Storage</h3>
 
--In Azure Databricks, create a Notebook. Start running the Cluster created and use the configuration template below (I used [] to indicate where you would replace with your own credentials). I mentioned how and where to get the client_id, secret_id, and tenant_id. 
+-In Azure Databricks, create a Notebook. Start running the Cluster created and use the configuration template below (I used [] to indicate where you would replace with your own credentials). 
 
-The storage account name and container name can be found in the "Storage Account" page. 
+-I retrieved the storage account name and container name.
 
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Add%20role%20assignment.png?raw=true"><img>
 
