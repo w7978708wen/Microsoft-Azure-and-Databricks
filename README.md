@@ -154,7 +154,7 @@ extra_configs = configs)
 Note: In real-world applications, the credentials are stored in the "Key Vault". In the tutorial I followed, the credentials are exposed in the code, which I am aware is not good practice. 
 
 <br><br>
-<h3>Data transformation and data analysis using Apache Spark</h3>
+<h3>Data transformation and data analysis using PySpark</h3>
 
 Follow along by clicking on my Juypter notebook <a href="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Databricks%20Spark%20Data%20Transformation.ipynb"> here </a> .
 <br><br>
