@@ -92,7 +92,7 @@ Don’t forget to press validate and debug for the arrows to take into effect.
 <img src="https://github.com/w7978708wen/Microsoft-Azure-and-Databricks/blob/main/Images/Data%20Factory.jpg?raw=true"></img>
 <br><br>
 
-<h2>Section 2. Azure Databricks (for data transformation) </h2>
+<h2>Section 2. Azure Databricks for data transformation and data analysis (using PySpark) </h2>
 
 <h3>Create a workspace</h3>
 Create the workspace inside Azure Databricks. I made the mistake of choosing a region which has Unity Catalog enabled by default, such that I could not use the mount method to establish a relationship (with authentication information) from Azure Data Lake Storage to Azure Data Factory. 
@@ -246,7 +246,7 @@ The actual CSV file is stored in the file that says “part-0000-tid…” , and
 
 <br><br>
 
-<h2>Bonus section: Synapse Analytics </h2>
+<h2>Bonus section: Synapse Analytics (using SQL) </h2>
 
 <h3>Synapse Studio set-up</h3>
 
