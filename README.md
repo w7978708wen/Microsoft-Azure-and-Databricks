@@ -264,7 +264,7 @@ Next, I ran a SQL script on each dataset.
 
 <h3>Data analysis</h3>
 
-<h4>Query 1. Distribution of Applicants by Classification (New vs Returner) </h4>
+<h4>Sample query: Distribution of applicants by classification (new vs returner) </h4>
 
 ```sql
 SELECT [Classification Description], COUNT([Classification Description]) AS "Count"
